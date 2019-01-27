@@ -4,13 +4,15 @@ public class Main {
 
     public Main (){
 
-       // JFrame frame1 = new JFrame();
-       // Start start = new Start();
+        //JFrame frame1 = new JFrame();
+       //Start start = new Start();
 
         JFrame frame = new JFrame();
         GamePanel gamepanel = new GamePanel();
 
-        //frame1.add(start);
+        //frame1.pack();
+        //frame1.setVisible(true);
+       // frame1.setLocationRelativeTo(null);
 
         frame.add(gamepanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
