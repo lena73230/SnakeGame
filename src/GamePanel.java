@@ -7,8 +7,6 @@ import java.util.Random;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 
-    private static final long serialVersionUID = 1L;
-
     public static final int WIDTH = 500, HEIGHT = 500;
 
     private Thread thread;
@@ -25,7 +23,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     private Random r;
 
-    private int xCoor = 10, yCoor = 10, size = 15;
+    //where the head of the snake, length of it
+    private int xCoor = 10, yCoor = 10, size = 10;
     private double ticks = 0;
 
 
@@ -47,9 +46,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     public void start(){
         running = true;
+
+        //"this" because Runnable interface
         thread = new Thread(this);
+
+        //run()
         thread.start();
     }
+
     public void stop(){
         running = false;
         try{
@@ -59,13 +63,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         }
 
     }
+
+    //updating
     public void tick(){
         if(snake.size()==0){
             b = new BodyPart(xCoor, yCoor, 10);
             snake.add(b);
         }
+
         //manipulate the speed
         ticks=ticks+0.4;
+
         if(ticks>250000){
             if(right) xCoor++;
             if(left) xCoor--;
@@ -89,6 +97,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             apples.add(apple);
         }
 
+        //snake eats
         for(int i=0; i<apples.size(); i++){
             if(xCoor == apples.get(i).getxCoor() && yCoor == apples.get(i).getyCoor()){
                 size++;
@@ -100,6 +109,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         //collision on snake body part
         for(int i=0; i<snake.size(); i++){
             if(xCoor == snake.get(i).getxCoor() && yCoor == snake.get(i).getyCoor()){
+
+                //checking the head and head is always equal the position of the head
                 if(i != snake.size()-1){
                     System.out.println("Game Over");
                     stop();
@@ -107,27 +118,31 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             }
         }
 
-
-
         //collision on border
         if(xCoor<0 || xCoor>49 || yCoor<0 || yCoor>49 ){
             System.out.println("Game Over");
             stop();
+
         }
 
     }
+
+    //painting everything
     public void paint(Graphics g){
         g.clearRect(0,0, WIDTH, HEIGHT);
 
         g.setColor(Color.BLACK);
         g.fillRect(0,0,WIDTH, HEIGHT);
 
+        //drawing the grid
         for(int i=0; i<WIDTH/10; i++){
             g.drawLine(i*10, 0,i*10, HEIGHT);
         }
         for(int i=0; i<HEIGHT/10; i++){
             g.drawLine(0, i*10, HEIGHT, i*10);
         }
+
+
         for (int i=0; i<snake.size(); i++){
             snake.get(i).draw(g);
         }
