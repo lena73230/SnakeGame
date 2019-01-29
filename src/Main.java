@@ -2,25 +2,23 @@ import javax.swing.*;
 
 public class Main {
 
+    //constructor in a class
     public Main (){
-
-        //JFrame frame1 = new JFrame();
-       //Start start = new Start();
 
         JFrame frame = new JFrame();
         GamePanel gamepanel = new GamePanel();
-
-        //frame1.pack();
-        //frame1.setVisible(true);
-       // frame1.setLocationRelativeTo(null);
 
         frame.add(gamepanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("SNAKECODING");
 
-
+        //frame will be the size of the gamepanel
         frame.pack();
+
+        //frame visible
         frame.setVisible(true);
+
+        //frame on the center of the screen
         frame.setLocationRelativeTo(null);
     }
 
